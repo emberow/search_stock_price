@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>Page Title</title>
+
+<!-- 網頁編碼 -->
+<meta charset="UTF-8">
+
+<!-- 定義網頁描述 網頁關鍵字(被搜尋引擎偵測) 作者 -->
+<meta name="description" content="effective to save your money">
+<meta name="keywords" content="save money">
+<meta name="author" content="林健昌">
+
+<!-- 可以讓頁面寬度跟裝置寬度一樣 -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- 此為瀏覽器標齊旁邊的小圖案 -->
+<link rel="icon" type="image/x-icon" href='favicon.jpg'>
+
+
+</head>
+
+
+
+<body>
+    <p>查詢股票價格</p>
+    <input type="text" id="stock_num">
+    <button  onclick="get_stock_info();">查詢</button>
+    <canvas id="myChart"></canvas>
+    <!-- 引入jquery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="/script/index.js"></script>
+    <!-- 引入icon library -->
+    <script src="https://kit.fontawesome.com/b50638cf6f.js" crossorigin="anonymous"></script>
+    <!-- chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</body>
+</html>
