@@ -28,6 +28,26 @@ var get_stock = async function(stock_num) {
     });
 };
 
+var MongoClient = require('mongodb').MongoClient;
+var url = "mongodb://localhost:27017/";
+
+async function get_stock_name(stock_num){
+    return new Promise((resolve, reject) => {
+        MongoClient.connect(url, function(err, db) {
+            if (err) throw err;
+            var dbo = db.db("stock");
+            //注意特殊字元
+            var query = { "stock_num": stock_num+" \r" };
+            dbo.collection("stock_transfer").find(query).toArray(function(err, result) {
+              if (err) throw err;
+              resolve(result[0].stock_name);
+              db.close();
+            });
+        });
+    });
+    
+}
+
 app.get('/',function(req, res){
     res.render('index');
 });
@@ -37,7 +57,13 @@ app.get('/get_stock_info',function(req, res){
     get_stock(stock_num).then(
         function(data) {
             // 回傳該股票一年開盤價
-            res.send({'json_data':data});
+            get_stock_name(stock_num).then(
+                function(stock_name){
+                    res.send({'json_data':data, 'stock_name': stock_name});
+                },
+                function(err){throw err}
+            );
+            
         },
         function(error) {throw error}
       );

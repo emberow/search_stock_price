@@ -12,21 +12,23 @@ function get_stock_info(){
             document.getElementById("accounting_table").innerHTML = "連接server失敗";
         },
         success:function(data){   
+            let stock_name = data.stock_name;
             data = data.json_data;
-            show_stock_info(data);
+            show_stock_info(data, stock_name);
         }
     });
 }
 
-function show_stock_info(data){
+function show_stock_info(data, stock_name){
     let json_data = JSON.parse(data);
     // 該股票一年開盤價
     let stock_price = json_data.chart.result[0].indicators.quote[0].open;
     let time_stamp = json_data.chart.result[0].timestamp;
     let time_array = [];
+    console.log(stock_name);
+    $("#stock_name").html(stock_name);
     for(time of time_stamp){
         // yahoo是用秒計算 Date()用毫秒
-        console.log(time)
         let date_obj = new Date(time*1000);
         let month = date_obj.getMonth();
         let date = date_obj.getDate();
